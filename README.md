@@ -15,6 +15,7 @@ Glad you asked — https://templeos.org
 * https://github.com/stealthmachines/conscious
 * https://github.com/ZCHGorg/NGINX-HDGL/tree/v0.6-c
 * https://github.com/ZCHGorg/NGINX-HDGL/tree/v0.6-c-frontierland
+* https://github.com/stealthmachines/EZ-by-zCHG-W-LM-Studio-and-3-LLM-s-in-Council
 
 ---
 
