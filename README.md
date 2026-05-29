@@ -2,6 +2,8 @@
 
 ---
 
+* Please note - This is not complete yet, but I wanted to ensure the idea was put pen to paper.
+
 # What is TempleOS?
 
 Glad you asked — https://templeos.org
