@@ -1,0 +1,66 @@
+# Instructions
+We are building a K.I.S.S. HDGL (Analog-over-digital) fully distributed - ISP (zchg:// per "\NGINX-HDGL-0.6-c\NGINX-HDGL-0.6-c") + Temple2-primitives (kernel, compiler) + HDGL OS written in HDGL Languages; powered by wrapped and mapped (park function) CHG Coin and supervised by "\MCP-Jailbreak-0.11", where the UI is based upon "\frontierland5\frontierland1\frontierland"
+
+Our Temple2-primitives (\HDGL P2P Internet\OS primitives (temple2)\Spare Parts), which host this UI - "\frontierland5", formulate a new analog-over-digital OS to fully replace ALPINE as in "\conscious-128-bit-floor-extracted\conscious-128-bit-floor"
+
+AVOID Python ALWAYS.  <b>Use ONLY my own repo's files!!!</b>  ONLY C, Holy C, HDGL languages, b4096, DNA e.g. "\spiral8plus-master" HDGL json are permitted THROUGHOUT.
+
+YIN (random number OS primitives) - "\HDGL P2P Internet\OS primitives (temple2)\Spare Parts"
+YANG (deterministic arbitrary resolution psuedo-random phi / HDGL OS-sub-layer) - "\HDGL P2P Internet\Analog-Prime-main\Analog-Prime-main\conscious-128-bit-floor-extracted\conscious-128-bit-floor" and parent folder
+
+# PHASE 1
+HDGL Analog-over-digital OS on an ISO that is ready to be booted from iDRAC8.  Since TempleOS had no internet, its primitives are the perfect candidate to host A local-only bot ("\HDGL P2P Internet\MCP-Jailbreak-0.11\MCP-Jailbreak-0.11") (see Phase 2)
+
+# Phase 2
+A local-only bot ("\HDGL P2P Internet\MCP-Jailbreak-0.11\MCP-Jailbreak-0.11") which is accessible via primitives of Frontierland-as-UI.  The public frontierland is co-hosted by all nodes on the network, while private "homes" of frontierland are only hosted by the node(s) of the "home" owner, or their authorized peers per "\HDGL P2P Internet\frontierland5".
+
+# Phase 3
+fully Distributed HDGL ISP powered by CHG Coin parking function, with frontierland UI allowing for private homes-as-OS + public "real-estate" map
+
+# HDGL Kernel / Prismatic Computer
+https://josefkulovany.com/demo/9.24.25-%20kernel/really%20works/
+https://josefkulovany.com/demo/9.21.25%20-%20Prismatic%20Computer/
+
+# HDGL / Analog-over-digital
+
+"\HDGL P2P Internet\HDGL-SQL-0.2"
+"\HDGL P2P Internet\Analog-Prime-main\Analog-Prime-main"
+https://zchg.org/t/mafia8-analog-prismatic-engine-scripts-hdgl/858
+https://forum.zchg.org/t/turing-complete-tertiary-machine-that-runs-on-binary-hdgl-primitives/857
+https://josefkulovany.com/demo/9.19.25%20-%20TURING%20and%20HDGL/
+
+# HDGL Languages
+https://zchg.org/t/a-vector-language-part-2/864
+https://zchg.org/t/a-vector-language-part-1/863/1
+https://zchg.org/t/an-elegant-phi-based-language/860
+https://zchg.org/t/more-phi-language/862
+"\HDGL P2P Internet\spiral8plus-master\spiral8plus-master" - to attend, folding - "\HDGL P2P Internet\Prime-Hunter-2\BigG + Fudge10 - Empirical & Unified\Grand Unified Take 2\base4096-2.0.1\spare parts"
+
+# HDGL Json
+"\HDGL P2P Internet\HDGL-SQL-0.2\HDGL-SQL-0.2"
+
+# P2P / fully distributed ISP
+https://zchg.org/t/caji-0-10-lets-begin/755 (and all links)
+https://josefkulovany.com/demo/caji/
+https://zchg.org/t/ground-to-ground-communications-as-they-relate-to-split-phase-inverters/441/3
+https://forum.zchg.org/t/sacred-geometry-expressions-day-two/591
+https://josefkulovany.com/demo/9.22.25%20-%20radio2/creme/
+
+# Assets / Constraints
+SuperMicro X9DRW-7TPF Dual Xeon LGA2011 2x E5-2650V2 CPU Server Motherboard
+Dell Poweredge R430 / R530 DDR4 Motherboard Board
+X99HC 0X99HC Dell PowerEdge R430 R530 T430 T530 Remote Port Card iDRAC8
+Intel Xeon Phi 5110P + M60 + M40 + MI25 cards
+
+https://etherscan.io/token/0xc4a86561cb0b7ea1214904f26e6d50fd357c7986#code
+"\HDGL P2P Internet\CHG COIN SMART CONTRACT.sol"
+
+#### ALL owned by me, therefore encouraged to utilize to the fullest -
+https://github.com/stealthmachines
+https://github.com/zchgorg
+https://josefkulovany.com/demo
+"\Josef's Code 2025"
+"\Josef's Code 2026"
+
+# IPFS + Waybackmachine + ETH Boostrap
+In the case where no nodes survive, our military grade P2P ISP can resurrect using one or all three - IPFS, waybackmachine, ETH bootstrap
