@@ -20,6 +20,7 @@ Glad you asked — https://templeos.org
 # With roadmap to include:
 * https://github.com/stealthmachines/spiral8plus
 * https://github.com/stealthmachines/Temple2/blob/main/PLANp2pINTERNET.md
+* https://github.com/stealthmachines/Temple2/blob/main/PLANanalogOS
 
 ---
 
