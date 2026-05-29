@@ -20,7 +20,7 @@ Glad you asked — https://templeos.org
 
 ### A)
 
-We needed bootloader fodder we thought we could trust not to have any secret windows. Who better in this context than Terry Davis, who is convincingly a solo dev?
+I needed bootloader fodder I thought I could trust not to have any secret windows. Who better in this context than Terry Davis, who is convincingly a solo dev?
 
 ### B)
 
@@ -34,6 +34,8 @@ K.I.S.S.
 
 # The risks of this proposition
 
-Terry Davis' files may have been tampered with. We were not able to locate the raw files, and pulled them instead from a second-hand repo with a flaggable name - https://github.com/cia-foundation/TempleOS  
+Terry Davis' files may have been tampered with. I was not able to locate the raw files, and pulled them instead from a second-hand repo with a flaggable name - https://github.com/cia-foundation/TempleOS 
 
 The reason for this is unfortunate.  The ISO does not reveal the file structure readily. This will need to be cross-examined later on...
+
+It was observed that censorship had occurred when I tried to post some repo's into Terry Davis' official Discourse.  More red flags.  Why is Terry Davis' work seemingly so carefully guarded, the same for my own contributions to his "anti-glowie" channel?
