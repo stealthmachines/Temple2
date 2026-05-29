@@ -17,6 +17,8 @@ Glad you asked — https://templeos.org
 * https://github.com/ZCHGorg/NGINX-HDGL/tree/v0.6-c-frontierland
 * https://github.com/stealthmachines/EZ-by-zCHG-W-LM-Studio-and-3-LLM-s-in-Council
 
+With roadmap to include https://github.com/stealthmachines/spiral8plus
+
 ---
 
 # The general idea is that
