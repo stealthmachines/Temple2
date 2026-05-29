@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy — Local AI</title>
+<style>
+  :root {
+    --bg:      #0d0d0f;
+    --surface: #16161a;
+    --border:  #2a2a30;
+    --text:    #e8e8ec;
+    --dim:     #8888a0;
+    --accent:  #7c6af7;
+    --accent2: #4ecdc4;
+    --green:   #5af078;
+    --red:     #f05a5a;
+    --yellow:  #f0c85a;
+    --radius:  10px;
+    --mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--accent);
+  }
+
+  .logo span { color: var(--dim); font-weight: 400; }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 9px;
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--dim);
+    flex-shrink: 0;
+  }
+  .dot.ok  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot.err { background: var(--red); }
+  .dot.thinking { background: var(--yellow); animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .3; }
+  }
+
+  .mode-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--accent2);
+    background: color-mix(in srgb, var(--accent2) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent2) 30%, transparent);
+    border-radius: 4px;
+    padding: 2px 7px;
+    letter-spacing: .06em;
+  }
+
+  /* ── Chat area ── */
+  #chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+
+  #chat::-webkit-scrollbar { width: 5px; }
+  #chat::-webkit-scrollbar-track { background: transparent; }
+  #chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+  .msg {
+    display: flex;
+    gap: 12px;
+    max-width: 780px;
+    animation: fadeIn .18s ease;
+  }
+
+  @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } }
+
+  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    user-select: none;
+  }
+
+  .msg.user .avatar { background: color-mix(in srgb, var(--accent) 20%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+
+  .bubble {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 15px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: min(620px, 85vw);
+  }
+
+  .msg.user .bubble {
+    background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  .bubble code {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: #1e1e26;
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .bubble pre {
+    background: #0a0a10;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 12px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 13px;
+    margin: 8px 0;
+  }
+
+  .bubble pre code { background: none; padding: 0; }
+
+  .meta {
+    font-size: 10px;
+    color: var(--dim);
+    margin-top: 5px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .meta .mode-tag {
+    font-family: var(--mono);
+    background: color-mix(in srgb, var(--accent2) 10%, transparent);
+    color: var(--accent2);
+    border: 1px solid color-mix(in srgb, var(--accent2) 20%, transparent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9px;
+  }
+
+  /* ── Typing indicator ── */
+  .typing { display: flex; gap: 5px; align-items: center; padding: 4px 2px; }
+  .typing span {
+    width: 8px; height: 8px;
+    background: var(--dim);
+    border-radius: 50%;
+    animation: bounce .9s infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: .15s; }
+  .typing span:nth-child(3) { animation-delay: .3s; }
+
+  @keyframes bounce {
+    0%,60%,100% { transform: translateY(0); opacity:.4; }
+    30%          { transform: translateY(-7px); opacity:1; }
+  }
+
+  /* ── Input bar ── */
+  #input-bar {
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  #msg-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    padding: 9px 13px;
+    resize: none;
+    min-height: 38px;
+    max-height: 160px;
+    outline: none;
+    transition: border-color .15s;
+    line-height: 1.5;
+  }
+
+  #msg-input:focus { border-color: var(--accent); }
+  #msg-input::placeholder { color: var(--dim); }
+
+  #send-btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 17px;
+    width: 38px; height: 38px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: opacity .15s, transform .1s;
+  }
+  #send-btn:hover:not(:disabled) { opacity: .85; }
+  #send-btn:active:not(:disabled) { transform: scale(.92); }
+  #send-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+  /* ── Welcome card — shown until first AI response ── */
+  #welcome-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    max-width: 560px;
+    margin: auto;
+    animation: fadeIn .25s ease;
+  }
+
+  #welcome-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  #welcome-card p {
+    color: var(--dim);
+    font-size: 13px;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .cap-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+
+  .cap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 11px;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .cap-icon { font-size: 15px; flex-shrink: 0; }
+
+  .start-hint {
+    font-size: 12px;
+    color: var(--dim);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .start-hint kbd {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 11px;
+    font-family: var(--mono);
+  }
+
+  /* ── Scrollbar thin on Firefox ── */
+  #chat { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Easy <span>by zCHG.org</span></div>
+  <div class="status-pill" id="status-pill">
+    <div class="dot" id="status-dot"></div>
+    <span id="status-text">connecting…</span>
+  </div>
+  <div class="mode-badge" id="mode-badge">φ-routing</div>
+</header>
+
+<div id="chat">
+  <!-- Welcome card — hidden once conversation starts -->
+  <div id="welcome-card">
+    <h2>Ready to work.</h2>
+    <p>Your local AI assistant has full access to this machine. No cloud, no accounts — everything runs here.</p>
+    <div class="cap-list">
+      <div class="cap"><span class="cap-icon">⚙️</span> Shell commands</div>
+      <div class="cap"><span class="cap-icon">📁</span> Files &amp; folders</div>
+      <div class="cap"><span class="cap-icon">🌐</span> Web &amp; scraping</div>
+      <div class="cap"><span class="cap-icon">🗄️</span> SQLite database</div>
+      <div class="cap"><span class="cap-icon">🧭</span> Browser control</div>
+      <div class="cap"><span class="cap-icon">📬</span> Telegram / email</div>
+      <div class="cap"><span class="cap-icon">💻</span> Run code</div>
+      <div class="cap"><span class="cap-icon">🧠</span> Persistent memory</div>
+    </div>
+    <p class="start-hint">Type anything and press <kbd>Enter</kbd> — or <kbd>Shift+Enter</kbd> for a new line.</p>
+  </div>
+</div>
+
+<div id="input-bar">
+  <textarea id="msg-input" placeholder="What would you like to do?" rows="1" disabled></textarea>
+  <button id="send-btn" title="Send (Enter)" disabled>↑</button>
+</div>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────────────────
+const PROXY   = window.location.origin;
+const CHAT_EP = PROXY + '/v1/chat/completions';
+
+// System prompt — agentic persona without tool-call directives
+// (REST API has no SSE tool pipeline; keep it pure text instructions)
+const SYSTEM = `You are a fully agentic local AI assistant. You have direct tool access to this machine via a Wu-Wei MCP server: shell execution, file system, web fetch, SQLite, browser control, Telegram, email, code execution, and persistent memory. You think carefully before acting. When you need to do something multi-step, describe your plan briefly then execute it step by step. Be concise and direct.`;
+
+// ── Conversation state ───────────────────────────────────────────────────────
+const history  = [];
+let   busy     = false;
+let   welcomed = false;   // true once welcome card is hidden
+
+// ── DOM ──────────────────────────────────────────────────────────────────────
+const chat      = document.getElementById('chat');
+const input     = document.getElementById('msg-input');
+const sendBtn   = document.getElementById('send-btn');
+const statusDot = document.getElementById('status-dot');
+const statusTxt = document.getElementById('status-text');
+const modeBadge = document.getElementById('mode-badge');
+
+// ── Markdown-lite renderer (handles bold, code, code blocks, headers) ────────
+function renderMarkdown(text) {
+  // strip <think> blocks
+  text = text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  // code blocks first
+  const blocks = [];
+  text = text.replace(/```([\w]*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+    const idx = blocks.length;
+    blocks.push(`<pre><code class="lang-${lang || 'text'}">${esc(code.trimEnd())}</code></pre>`);
+    return `\x00BLOCK${idx}\x00`;
+  });
+
+  // inline code
+  text = text.replace(/`([^`\n]+)`/g, (_, c) => `<code>${esc(c)}</code>`);
+
+  // headers
+  text = text.replace(/^### (.+)$/gm, '<strong style="color:#c0b0ff">$1</strong>');
+  text = text.replace(/^## (.+)$/gm,  '<strong style="font-size:1.05em">$1</strong>');
+  text = text.replace(/^# (.+)$/gm,   '<strong style="font-size:1.1em">$1</strong>');
+
+  // bold
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  // restore blocks
+  text = text.replace(/\x00BLOCK(\d+)\x00/g, (_, i) => blocks[+i]);
+
+  return text;
+}
+
+// ── Append a message bubble ──────────────────────────────────────────────────
+function appendMsg(role, content, meta = {}) {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ' + role;
+
+  const av = document.createElement('div');
+  av.className = 'avatar';
+  av.textContent = role === 'user' ? '👤' : '⬡';
+
+  const bub = document.createElement('div');
+  bub.className = 'bubble';
+  bub.innerHTML = renderMarkdown(content);
+
+  const metaEl = document.createElement('div');
+  metaEl.className = 'meta';
+
+  if (meta.mode) {
+    const m = document.createElement('span');
+    m.className = 'mode-tag';
+    m.textContent = meta.mode;
+    metaEl.appendChild(m);
+  }
+
+  const ts = document.createElement('span');
+  ts.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  metaEl.appendChild(ts);
+
+  if (meta.ms) {
+    const t = document.createElement('span');
+    t.textContent = `${(meta.ms / 1000).toFixed(1)}s`;
+    metaEl.appendChild(t);
+  }
+
+  wrap.appendChild(av);
+  const right = document.createElement('div');
+  right.appendChild(bub);
+  right.appendChild(metaEl);
+  wrap.appendChild(right);
+
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+  return wrap;
+}
+
+// ── Typing indicator ─────────────────────────────────────────────────────────
+let typingEl = null;
+function showTyping() {
+  if (typingEl) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'msg assistant';
+  wrap.innerHTML = '<div class="avatar">⬡</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>';
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+  typingEl = wrap;
+}
+function hideTyping() {
+  if (typingEl) { typingEl.remove(); typingEl = null; }
+}
+
+// ── Status helpers ───────────────────────────────────────────────────────────
+function setStatus(state, text) {
+  statusDot.className = 'dot ' + state;
+  statusTxt.textContent = text;
+}
+
+// ── Hide welcome card on first exchange ──────────────────────────────────────
+function dismissWelcome() {
+  if (welcomed) return;
+  welcomed = true;
+  const card = document.getElementById('welcome-card');
+  if (card) card.remove();
+}
+
+// ── Send a message ────────────────────────────────────────────────────────────
+async function send(userContent) {
+  if (busy || !userContent.trim()) return;
+  busy = true;
+  sendBtn.disabled = true;
+  input.disabled = true;
+
+  dismissWelcome();
+  history.push({ role: 'user', content: userContent });
+  appendMsg('user', userContent);
+  input.value = '';
+  autoResize();
+
+  setStatus('thinking', 'thinking…');
+  showTyping();
+
+  const t0 = Date.now();
+  try {
+    const resp = await fetch(CHAT_EP, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'system', content: SYSTEM }, ...history],
+        stream:   false,
+      }),
+      signal: AbortSignal.timeout(180_000),
+    });
+
+    const data = await resp.json();
+
+    // Surface any API-level error clearly
+    if (!resp.ok || data.error) {
+      const msg = data.error?.message || data.error || `HTTP ${resp.status}`;
+      throw new Error(msg);
+    }
+
+    // Content may be in message.content (text) or message.tool_calls (tool use)
+    const choice  = data.choices?.[0];
+    const content = choice?.message?.content?.trim() ||
+                    (choice?.message?.tool_calls ? '[Tool call — connect via MCP SSE for tool results]' : null) ||
+                    '(empty response — the model may still be loading, try again)';
+
+    const mode = data.mode || data.routing_mode || data.hdgl_mode || '';
+    const ms   = Date.now() - t0;
+
+    hideTyping();
+    history.push({ role: 'assistant', content });
+    appendMsg('assistant', content, { mode, ms });
+
+    if (mode) modeBadge.textContent = `φ → ${mode}`;
+    setStatus('ok', 'ready');
+
+  } catch (err) {
+    hideTyping();
+    const help = err.message.includes('fetch')
+      ? 'Is the daemon running? Run: `LN_LOCAL_NODE=127.0.0.1 LN_CLUSTER_SECRET=mysecret ./bin/zchg_daemon`'
+      : err.message;
+    appendMsg('assistant', `⚠ ${help}`, { mode: 'error' });
+    setStatus('err', 'error — retry?');
+    // Allow retrying after an error
+    history.pop();
+  }
+
+  busy = false;
+  sendBtn.disabled = false;
+  input.disabled = false;
+  input.focus();
+}
+
+// ── Auto-resize textarea ─────────────────────────────────────────────────────
+function autoResize() {
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+}
+input.addEventListener('input', autoResize);
+
+// ── Send on Enter (Shift+Enter = newline) ────────────────────────────────────
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send(input.value.trim());
+  }
+});
+sendBtn.addEventListener('click', () => send(input.value.trim()));
+
+// ── Bootstrap — verify stack, then unlock input ───────────────────────────────
+async function boot() {
+  setStatus('thinking', 'connecting…');
+  input.disabled = true;
+  sendBtn.disabled = true;
+
+  // Poll ZCHG daemon /health up to 30 s
+  let ready = false;
+  for (let i = 0; i < 15; i++) {
+    try {
+      const r = await fetch(PROXY + '/health', { signal: AbortSignal.timeout(2000) });
+      if (r.ok) { ready = true; break; }
+    } catch { /* still starting */ }
+    await new Promise(r => setTimeout(r, 2000));
+  }
+
+  if (!ready) {
+    setStatus('err', 'stack offline');
+    document.getElementById('welcome-card').innerHTML = `
+      <h2>Daemon not running</h2>
+      <p>Start the ZCHG daemon, then reload this page:</p>
+      <pre style="background:#0a0a10;padding:12px;border-radius:7px;font-family:monospace;font-size:13px">LN_LOCAL_NODE=127.0.0.1 LN_CLUSTER_SECRET=mysecret ./bin/zchg_daemon</pre>
+      <p style="margin-top:12px">Also ensure <code>ollama serve</code> is running with your model loaded.</p>`;
+    return;
+  }
+
+  setStatus('ok', 'ready');
+  input.disabled = false;
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+boot();
+</script>
+</body>
+</html>

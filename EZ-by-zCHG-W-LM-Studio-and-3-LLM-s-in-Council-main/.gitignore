@@ -1,0 +1,50 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build output ──────────────────────────────────────────────────────────────
+dist/
+
+# ── Large binaries — never commit, always download ───────────────────────────
+*.exe
+*.dmg
+*.AppImage
+*.gguf
+
+# ── Runtime state — auto-created by the stack ────────────────────────────────
+# ERL hash-chain ledger (conversation history)
+erl-ledger.json
+erl-ledger.json.lock
+
+# SQLite database (tool storage)
+mcp-data.db
+mcp-data.db-shm
+mcp-data.db-wal
+
+# Audit / debug logs
+mcp-audit.log
+*.log
+
+# SYSTEM_CONTEXT.json is generated fresh at each server start
+SYSTEM_CONTEXT.json
+
+# Wuwei routing runtime state and logs
+wuwei-routing/logs/
+wuwei-routing/state/
+
+# ── Dev / temp files ──────────────────────────────────────────────────────────
+_question.txt
+_synthesis.txt
+$null
+
+# ── OS junk ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Stray directories ────────────────────────────────────────────────────────
+Write-Host/
+archive (versioning)/
+
+# ── Analog Container submodule working tree ──────────────────────────────────
+# The submodule reference (.gitmodules) is tracked; the working tree is large
+analog-container/

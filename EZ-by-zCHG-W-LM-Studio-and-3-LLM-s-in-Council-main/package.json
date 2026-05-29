@@ -1,0 +1,33 @@
+{
+  "name": "easy-zchg",
+  "version": "1.0.0",
+  "description": "Easy by zCHG.org — phi-resonant dual-MCP stack",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start":   "node launch.mjs",
+    "status":  "node launch.mjs --status",
+    "package": "node package.mjs",
+    "test":    "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "clipboardy": "5.3.1",
+    "cors": "2.8.6",
+    "express": "5.2.1",
+    "node-cron": "4.2.1",
+    "node-fetch": "3.3.2",
+    "node-notifier": "10.0.1",
+    "node-telegram-bot-api": "0.67.0",
+    "nodemailer": "8.0.7",
+    "playwright": "1.59.1",
+    "sql.js": "1.14.1",
+    "systeminformation": "5.31.5"
+  },
+  "type": "module"
+}

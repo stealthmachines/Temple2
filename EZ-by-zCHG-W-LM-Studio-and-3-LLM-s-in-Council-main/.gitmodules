@@ -1,0 +1,4 @@
+[submodule "analog-container"]
+	path = analog-container
+	url = https://github.com/stealthmachines/AnalogContainer1.git
+	branch = main
