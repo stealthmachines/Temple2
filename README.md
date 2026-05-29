@@ -20,7 +20,7 @@ Glad you asked — https://templeos.org
 
 ### A)
 
-We needed bootloader fodder we thought we could trust not to have any secret windows. Who better in this context than Terry Davis, who is seemingly a solo dev?
+We needed bootloader fodder we thought we could trust not to have any secret windows. Who better in this context than Terry Davis, who is convincingly a solo dev?
 
 ### B)
 
