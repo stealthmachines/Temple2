@@ -2,7 +2,7 @@
 
 ---
 
-* Please note - This is not complete yet, but I wanted to ensure the idea was put pen to paper.
+* Please note - This is not complete yet, but I wanted to ensure the idea was put pen to paper, timely.
 
 # What is TempleOS?
 
