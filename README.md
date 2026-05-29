@@ -38,4 +38,4 @@ Terry Davis' files may have been tampered with. I was not able to locate the raw
 
 The reason for this is unfortunate.  The ISO does not reveal the file structure readily. This will need to be cross-examined later on...
 
-It was observed that censorship had occurred when I tried to post some repo's into Terry Davis' official Discourse.  More red flags.  Why is Terry Davis' work seemingly so carefully guarded, the same for my own contributions to his "anti-glowie" channel?
+It was observed that censorship had occurred when I tried to post some repo's into Terry Davis' official Discourse.  More red flags.  Why is Terry Davis' work seemingly so carefully guarded, the same for my own contributions to his "anti-glowie" channel?  Why is a compiler/kernal which has not windows in it such a threat?  Consider, elegant reader.
