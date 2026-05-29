@@ -34,4 +34,6 @@ K.I.S.S.
 
 # The risks of this proposition
 
-Terry Davis' files may have been tampered with. We were not able to locate the raw files, and pulled them instead from a second-hand repo. The ISO does not reveal the file structure readily. This will need to be cross-examined later on...
+Terry Davis' files may have been tampered with. We were not able to locate the raw files, and pulled them instead from a second-hand repo with a flaggable name - https://github.com/cia-foundation/TempleOS  
+
+The reason for this is unfortunate.  The ISO does not reveal the file structure readily. This will need to be cross-examined later on...
