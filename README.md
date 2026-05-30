@@ -46,7 +46,7 @@ Terry Davis' files may have been tampered with. I was not able to locate the raw
 
 The reason for this is unfortunate.  The ISO does not reveal the file structure readily. This will need to be cross-examined later on...
 
-It was observed that censorship had occurred when I tried to post some repo's into Terry Davis' official Discourse.  More red flags.  Why is Terry Davis' work seemingly so carefully guarded, the same for my own contributions to his "anti-glowie" channel?  Why is a compiler/kernel which has no known windows in it such a threat?  The man conspicuously chose zero networking.  Consider, elegant reader.
+It was observed that censorship had occurred when I tried to post some repo's into Terry Davis' official Discourse.  More red flags.  Why is Terry Davis' work seemingly so carefully guarded, the same for my own contributions to his official Discourse channel?  Why is a compiler/kernel which has no known windows such a threat?  The man conspicuously chose zero networking.  Consider, elegant reader.
 
 Oh and, somebody should really open an investigation surrounding Terry Davis' untimely death upon getting "hit by a train,"..
 
